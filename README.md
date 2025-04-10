@@ -51,3 +51,7 @@ Req: 0x19 Direccion Fisica: 0x19 Acción: Marco ya estaba asignado
 Req: 0x18 Direccion Fisica: 0x18 Acción: Marco ya estaba asignado
 Req: 0xf1 Direccion Fisica: 0x1ff Acción: Segmention Fault
 ```
+
+## Autor.
+
+ * Nombre completo:
