@@ -53,12 +53,10 @@ def procesar(segmentos, reqs, marcos_libres):
                         direccion_fisica = (marco * tam_pagina) + offset
                         results.append((req, direccion_fisica, msg_2))
                     else:
-                        pagina_out = pila_fifo.pop(0)
-                        marco_out = tabla_paginas[pagina_out]
-                        del tabla_paginas[pagina_out]
-
-                        tabla_paginas[pagina_req] = marco_out
-                        pila_fifo.append(pagina_req)
+                        # Reemplazo FIFO    
+                        pila_fifo, tabla_paginas, marco_out = fifo(
+                            pila_fifo, pagina_req, tabla_paginas
+                        )
                         direccion_fisica = (marco_out * tam_pagina) + offset
                         results.append((req, direccion_fisica, msg_3))
                 break
@@ -69,6 +67,16 @@ def procesar(segmentos, reqs, marcos_libres):
             )  # Error: dirección fuera de los segmentos
 
     return results
+
+def fifo(pila_fifo, pagina_req, tabla_paginas):
+    pagina_out = pila_fifo.pop(0)   # sacamos el primer elemento
+    marco_out = tabla_paginas[pagina_out]   # marco físico
+    del tabla_paginas[pagina_out]   # eliminamos la página de la tabla
+
+    tabla_paginas[pagina_req] = marco_out   # asignamos el nuevo marco
+    pila_fifo.append(pagina_req)    # agregamos la nueva página
+    
+    return pila_fifo, tabla_paginas, marco_out
 
 
 def print_results(results):
