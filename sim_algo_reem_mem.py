@@ -65,6 +65,8 @@ def procesar(segmentos, reqs, marcos_libres):
             results.append(
                 (req, 0x1FF, msg_4)
             )  # Error: dirección fuera de los segmentos
+            #terminar el programa
+            break
 
     return results
 
